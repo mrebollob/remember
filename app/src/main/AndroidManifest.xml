@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mrb.remember">
 
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
   <application
       android:name=".RememberApp"
@@ -32,6 +32,14 @@
     <activity android:name=".presentation.main.MainActivity">
     </activity>
 
-  </application>
+    <receiver
+        android:name=".notification.StudyTimeNotificationReceiver"
+        android:permission="android.permission.BIND_JOB_SERVICE"/>
 
+    <receiver android:name=".notification.StudyTimeNotificationHelper">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+    </receiver>
+  </application>
 </manifest>
