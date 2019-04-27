@@ -1,5 +1,7 @@
 package com.mrb.remember.presentation.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -37,5 +39,13 @@ class MainActivity : AppCompatActivity() {
 
     textMessage = findViewById(id.message)
     navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+  }
+
+  companion object Navigator {
+
+    fun open(context: Context) {
+      val intent = Intent(context, MainActivity::class.java)
+      context.startActivity(intent)
+    }
   }
 }
