@@ -1,9 +1,12 @@
-package com.mrb.remember
+package com.mrb.remember.presentation.main
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import com.mrb.remember.R.id
+import com.mrb.remember.R.layout
+import com.mrb.remember.R.string
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,16 +14,16 @@ class MainActivity : AppCompatActivity() {
   private val onNavigationItemSelectedListener =
     BottomNavigationView.OnNavigationItemSelectedListener { item ->
       when (item.itemId) {
-        R.id.navigation_home -> {
-          textMessage.setText(R.string.title_home)
+        id.navigation_home -> {
+          textMessage.setText(string.title_home)
           return@OnNavigationItemSelectedListener true
         }
-        R.id.navigation_dashboard -> {
-          textMessage.setText(R.string.title_dashboard)
+        id.navigation_dashboard -> {
+          textMessage.setText(string.title_dashboard)
           return@OnNavigationItemSelectedListener true
         }
-        R.id.navigation_notifications -> {
-          textMessage.setText(R.string.title_notifications)
+        id.navigation_notifications -> {
+          textMessage.setText(string.title_notifications)
           return@OnNavigationItemSelectedListener true
         }
       }
@@ -29,10 +32,10 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-    val navView: BottomNavigationView = findViewById(R.id.nav_view)
+    setContentView(layout.activity_main)
+    val navView: BottomNavigationView = findViewById(id.nav_view)
 
-    textMessage = findViewById(R.id.message)
+    textMessage = findViewById(id.message)
     navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
   }
 }
