@@ -1,4 +1,4 @@
-package com.mrb.remember.presentation.base
+package com.mrb.remember.presentation.platform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

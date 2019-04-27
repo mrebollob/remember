@@ -7,7 +7,7 @@ import com.mrb.remember.domain.extension.failure
 import com.mrb.remember.domain.extension.observe
 import com.mrb.remember.domain.extension.toast
 import com.mrb.remember.domain.extension.viewModel
-import com.mrb.remember.presentation.base.BaseActivity
+import com.mrb.remember.presentation.platform.BaseActivity
 import com.mrb.remember.presentation.main.MainActivity
 import com.mrb.remember.testing.OpenForTesting
 

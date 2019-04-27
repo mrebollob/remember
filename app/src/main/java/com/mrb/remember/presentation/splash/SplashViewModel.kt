@@ -2,7 +2,7 @@ package com.mrb.remember.presentation.splash
 
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
-import com.mrb.remember.presentation.base.BaseViewModel
+import com.mrb.remember.presentation.platform.BaseViewModel
 import com.mrb.remember.testing.OpenForTesting
 import javax.inject.Inject
 

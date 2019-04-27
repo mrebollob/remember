@@ -2,7 +2,7 @@ package com.mrb.remember.domain.extension
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mrb.remember.presentation.base.BaseActivity
+import com.mrb.remember.presentation.platform.BaseActivity
 
 inline fun <reified T : ViewModel> BaseActivity.viewModel(
   factory: ViewModelProvider.Factory,

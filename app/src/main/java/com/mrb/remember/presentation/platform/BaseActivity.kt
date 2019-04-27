@@ -1,4 +1,4 @@
-package com.mrb.remember.presentation.base
+package com.mrb.remember.presentation.platform
 
 import android.content.Context
 import android.os.Bundle
