@@ -3,42 +3,58 @@ package com.mrb.remember.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-import com.mrb.remember.R.id
-import com.mrb.remember.R.layout
-import com.mrb.remember.R.string
+import androidx.fragment.app.Fragment
+import com.mrb.remember.R
+import com.mrb.remember.domain.extension.navigate
+import com.mrb.remember.presentation.main.home.HomeFragment
+import com.mrb.remember.presentation.main.journal.JournalFragment
+import com.mrb.remember.presentation.main.profile.ProfileFragment
+import com.mrb.remember.presentation.platform.BaseActivity
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.activity_main.navigation
+import kotlinx.android.synthetic.main.toolbar.toolbar
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
-  private lateinit var textMessage: TextView
-  private val onNavigationItemSelectedListener =
-    BottomNavigationView.OnNavigationItemSelectedListener { item ->
-      when (item.itemId) {
-        id.navigation_home -> {
-          textMessage.setText(string.title_home)
-          return@OnNavigationItemSelectedListener true
-        }
-        id.navigation_dashboard -> {
-          textMessage.setText(string.title_dashboard)
-          return@OnNavigationItemSelectedListener true
-        }
-        id.navigation_notifications -> {
-          textMessage.setText(string.title_notifications)
-          return@OnNavigationItemSelectedListener true
-        }
-      }
-      false
-    }
+  @Inject
+  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+  override fun layoutId(): Int = R.layout.activity_main
+  override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(layout.activity_main)
-    val navView: BottomNavigationView = findViewById(id.nav_view)
 
-    textMessage = findViewById(id.message)
-    navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+    navigate(HomeFragment.newInstance())
+    initNavigation()
+    initToolbar()
+  }
+
+  private fun initNavigation() {
+    navigation.setOnNavigationItemSelectedListener { item ->
+      when (item.itemId) {
+        R.id.navigation_home -> {
+          navigate(HomeFragment.newInstance())
+          true
+        }
+        R.id.navigation_journal -> {
+          navigate(JournalFragment.newInstance())
+          true
+        }
+        R.id.navigation_profile -> {
+          navigate(ProfileFragment.newInstance())
+          true
+        }
+        else -> false
+      }
+    }
+  }
+
+  private fun initToolbar() {
+    setSupportActionBar(toolbar)
   }
 
   companion object Navigator {
