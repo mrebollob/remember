@@ -67,13 +67,15 @@
     </LinearLayout>
   </FrameLayout>
 
-  <FrameLayout
+  <LinearLayout
       android:id="@+id/firstDayView"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/spacing_normal"
       android:layout_marginStart="@dimen/spacing_normal"
       android:layout_marginTop="@dimen/spacing_large"
+      android:gravity="center"
+      android:orientation="vertical"
       >
 
     <TextView
@@ -81,12 +83,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_tiny"
         android:gravity="center"
-        android:text="Empieza con tu primer día"
+        android:text="@string/leitner_view_first_day_title"
         android:textColor="@color/primary_text"
         android:textSize="@dimen/font_larger"
         />
 
-  </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:gravity="center"
+        android:text="@string/leitner_view_first_day_info"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/font_normal"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:src="@drawable/ic_open_book"
+        />
+  </LinearLayout>
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/showLeitnerButton"

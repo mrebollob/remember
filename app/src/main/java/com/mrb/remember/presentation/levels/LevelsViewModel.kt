@@ -22,6 +22,7 @@ class LevelsViewModel @Inject constructor(
   var completedDay: MutableLiveData<LeitnerDay> = MutableLiveData()
 
   fun init() {
+    showLoading()
     getCompletedDay(UseCase.None()) {
       it.either(::handleFailure, ::handleLeitnerDay)
     }
@@ -44,6 +45,7 @@ class LevelsViewModel @Inject constructor(
   }
 
   private fun handleHomework(homework: Homework) {
+    hideLoading()
     this.homework.value = homework
   }
 }

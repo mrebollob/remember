@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    activity?.title = ""
+    activity?.setTitle(R.string.app_name)
     countdownView.gone()
     firstDayView.gone()
 

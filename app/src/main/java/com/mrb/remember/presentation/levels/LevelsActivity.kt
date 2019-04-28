@@ -6,16 +6,20 @@ import android.os.Bundle
 import com.mrb.remember.R
 import com.mrb.remember.domain.exception.Failure
 import com.mrb.remember.domain.extension.failure
+import com.mrb.remember.domain.extension.gone
 import com.mrb.remember.domain.extension.observe
 import com.mrb.remember.domain.extension.toast
 import com.mrb.remember.domain.extension.viewModel
+import com.mrb.remember.domain.extension.visible
 import com.mrb.remember.domain.model.Homework
 import com.mrb.remember.domain.model.LeitnerDay
 import com.mrb.remember.presentation.levels.adapter.LevelsAdapter
 import com.mrb.remember.presentation.platform.BaseActivity
 import kotlinx.android.synthetic.main.activity_levels.dayTextView
 import kotlinx.android.synthetic.main.activity_levels.doneButton
+import kotlinx.android.synthetic.main.activity_levels.levelsContent
 import kotlinx.android.synthetic.main.activity_levels.levelsListView
+import kotlinx.android.synthetic.main.activity_levels.levelsLoading
 import kotlinx.android.synthetic.main.activity_levels.levelsTextView
 import java.util.Date
 
@@ -32,6 +36,7 @@ class LevelsActivity : BaseActivity() {
     levelsViewModel = viewModel(viewModelFactory) {
       observe(homework, ::handleHomework)
       observe(completedDay, ::handleCompletedDay)
+      observe(loading, ::handleLoading)
       failure(failure, ::handleError)
     }
 
@@ -41,6 +46,8 @@ class LevelsActivity : BaseActivity() {
       levelsViewModel.setCompletedDay(LeitnerDay(currentDay, Date()))
     }
     levelsViewModel.init()
+
+    levelsLoading.visible()
   }
 
   private fun handleHomework(homework: Homework?) {
@@ -57,6 +64,16 @@ class LevelsActivity : BaseActivity() {
 
   private fun handleCompletedDay(day: LeitnerDay?) {
     finish()
+  }
+
+  private fun handleLoading(showLoading: Boolean?) {
+    if (showLoading == true) {
+      levelsLoading.visible()
+      levelsContent.gone()
+    } else {
+      levelsLoading.gone()
+      levelsContent.visible()
+    }
   }
 
   private fun handleError(failure: Failure?) {
