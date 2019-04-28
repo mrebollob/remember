@@ -15,7 +15,8 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
   private val getNotificationEnable: GetNotificationEnable,
   private val getStudyHour: GetStudyHour,
-  private val notificationManager: NotificationManager
+  private val notificationManager: NotificationManager,
+  private val firstStartHandler: FirstStartHandler
 ) : BaseViewModel() {
 
   var isFirstStart: MutableLiveData<Boolean> = MutableLiveData()
@@ -27,10 +28,14 @@ class SplashViewModel @Inject constructor(
 
     Handler().postDelayed(
       {
-        isFirstStart.value = false
+        isFirstStart.value = firstStartHandler.isFirstStart()
       },
       1000
     )
+  }
+
+  fun setFirstStart() {
+    firstStartHandler.saveFirstStart()
   }
 
   private fun handleNotificationEnable(isEnabled: Boolean) {

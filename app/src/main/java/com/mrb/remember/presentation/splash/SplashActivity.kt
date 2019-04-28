@@ -7,8 +7,9 @@ import com.mrb.remember.domain.extension.failure
 import com.mrb.remember.domain.extension.observe
 import com.mrb.remember.domain.extension.toast
 import com.mrb.remember.domain.extension.viewModel
-import com.mrb.remember.presentation.platform.BaseActivity
+import com.mrb.remember.presentation.intro.IntroActivity
 import com.mrb.remember.presentation.main.MainActivity
+import com.mrb.remember.presentation.platform.BaseActivity
 import com.mrb.remember.testing.OpenForTesting
 
 @OpenForTesting
@@ -29,7 +30,16 @@ class SplashActivity : BaseActivity() {
   }
 
   private fun renderResult(isFirstStart: Boolean?) {
-    initApp()
+    when (isFirstStart) {
+      true -> initShowIntro()
+      else -> initApp()
+    }
+  }
+
+  private fun initShowIntro() {
+    splashViewModel.setFirstStart()
+    IntroActivity.open(this)
+    finish()
   }
 
   private fun initApp() {
