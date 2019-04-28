@@ -8,10 +8,12 @@ import android.view.View
 import com.mrb.remember.R
 import com.mrb.remember.domain.exception.Failure
 import com.mrb.remember.domain.extension.toast
+import com.mrb.remember.presentation.about.AboutActivity
 import com.mrb.remember.presentation.platform.BaseFragment
 
 class ProfileFragment : BaseFragment() {
 
+  override fun layoutId(): Int = R.layout.fragment_profile
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setHasOptionsMenu(true)
@@ -25,11 +27,12 @@ class ProfileFragment : BaseFragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item?.itemId) {
       R.id.navigate_to_settings -> {
-//        SettingsActivity.open(requireContext())
+
+        context?.toast("TODO")
         true
       }
       R.id.navigate_to_about -> {
-//        AboutActivity.open(requireContext())
+        AboutActivity.open(requireContext())
         true
       }
       else -> {
@@ -37,8 +40,6 @@ class ProfileFragment : BaseFragment() {
       }
     }
   }
-
-  override fun layoutId(): Int = R.layout.fragment_profile
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
