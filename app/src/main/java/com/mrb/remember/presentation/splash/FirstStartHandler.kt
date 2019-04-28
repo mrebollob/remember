@@ -1,8 +1,10 @@
 package com.mrb.remember.presentation.splash
 
 import android.content.SharedPreferences
+import com.mrb.remember.testing.OpenForTesting
 import javax.inject.Inject
 
+@OpenForTesting
 class FirstStartHandler @Inject constructor(private val preferences: SharedPreferences) {
 
   fun isFirstStart(): Boolean {

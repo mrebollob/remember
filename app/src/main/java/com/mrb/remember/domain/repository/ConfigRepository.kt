@@ -14,7 +14,7 @@ interface ConfigRepository {
 
   suspend fun getNextStudyTime(): Either<Failure, Date>
 
-  suspend fun getStudyHour(): Either<Failure, Hour>
+  fun getStudyHour(): Either<Failure, Hour>
 
   suspend fun saveStudyHour(hour: Hour): Either<Failure, Hour>
 

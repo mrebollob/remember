@@ -59,7 +59,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     }
   }
 
-  override suspend fun getStudyHour(): Either<Failure, Hour> {
+  override fun getStudyHour(): Either<Failure, Hour> {
     return try {
       val jsonHour = sharedPreferences.getString(STUDY_HOUR_KEY, "")
       val hour = if (jsonHour.isNullOrEmpty()) {

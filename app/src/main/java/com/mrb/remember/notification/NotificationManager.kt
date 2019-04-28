@@ -9,9 +9,11 @@ import android.os.Build
 import com.mrb.remember.domain.extension.ONE_DAY_MILLIS
 import com.mrb.remember.domain.extension.getCalendarForToday
 import com.mrb.remember.domain.model.Hour
+import com.mrb.remember.testing.OpenForTesting
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@OpenForTesting
 @Singleton
 class NotificationManager @Inject constructor(private val context: Application) {
 
