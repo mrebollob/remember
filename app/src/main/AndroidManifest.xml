@@ -42,6 +42,12 @@
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
 
+    <activity
+        android:name=".presentation.levels.LevelsActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+
     <receiver
         android:name=".notification.StudyTimeNotificationReceiver"
         android:permission="android.permission.BIND_JOB_SERVICE"/>

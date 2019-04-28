@@ -15,6 +15,7 @@ import com.mrb.remember.domain.extension.snack
 import com.mrb.remember.domain.extension.toast
 import com.mrb.remember.domain.extension.viewModel
 import com.mrb.remember.domain.extension.visible
+import com.mrb.remember.presentation.levels.LevelsActivity
 import com.mrb.remember.presentation.platform.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.circleProgressView
 import kotlinx.android.synthetic.main.fragment_home.countdownView
@@ -135,8 +136,7 @@ class HomeFragment : BaseFragment() {
     }
 
     showLeitnerButton.setOnClickListener {
-      //      LevelsActivity.open(it.context)
-      TODO("LevelsActivity.open(it.context)")
+      LevelsActivity.open(it.context)
     }
   }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mrb.remember.di.RememberViewModelFactory
 import com.mrb.remember.di.annotation.ViewModelKey
+import com.mrb.remember.presentation.levels.LevelsViewModel
 import com.mrb.remember.presentation.main.home.HomeViewModel
 import com.mrb.remember.presentation.main.journal.JournalViewModel
 import com.mrb.remember.presentation.main.profile.ProfileViewModel
@@ -35,6 +36,11 @@ abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(ProfileViewModel::class)
   abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(LevelsViewModel::class)
+  abstract fun bindLevelsViewModel(LevelsViewModel: LevelsViewModel): ViewModel
 
   @Binds
   abstract fun bindViewModelFactory(factory: RememberViewModelFactory): ViewModelProvider.Factory

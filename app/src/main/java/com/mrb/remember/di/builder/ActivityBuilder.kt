@@ -1,5 +1,6 @@
 package com.mrb.remember.di.builder
 
+import com.mrb.remember.presentation.levels.LevelsActivity
 import com.mrb.remember.presentation.main.MainActivity
 import com.mrb.remember.presentation.splash.SplashActivity
 import dagger.Module
@@ -14,4 +15,7 @@ abstract class ActivityBuilder {
 
   @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
   abstract fun contributeMainActivity(): MainActivity
+
+  @ContributesAndroidInjector
+  abstract fun contributeLevelsActivity(): LevelsActivity
 }
