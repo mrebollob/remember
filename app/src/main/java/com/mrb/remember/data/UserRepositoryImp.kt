@@ -1,35 +1,30 @@
 package com.mrb.remember.data
 
-import com.mrb.remember.data.api.LeitnerBoxApiService
-import com.mrb.remember.data.entity.LevelEntity
+import com.mrb.remember.data.api.UserApiService
+import com.mrb.remember.data.entity.UserEntity
 import com.mrb.remember.data.utils.NetworkHandler
 import com.mrb.remember.domain.exception.Failure
 import com.mrb.remember.domain.functional.Either
-import com.mrb.remember.domain.model.Homework
-import com.mrb.remember.domain.model.Question
-import com.mrb.remember.domain.repository.RememberRepository
+import com.mrb.remember.domain.model.User
+import com.mrb.remember.domain.repository.UserRepository
 import retrofit2.Call
 
-class RememberRepositoryImp(
-  private val apiService: LeitnerBoxApiService,
+
+class UserRepositoryImp(
+  private val apiService: UserApiService,
   private val networkHandler: NetworkHandler
-) : RememberRepository {
+) : UserRepository {
 
-
-  override suspend fun homework(day: Int): Either<Failure, Homework> {
+  override suspend fun user(): Either<Failure, User> {
 
     return when (networkHandler.isConnected) {
       true -> request(
-        apiService.levels(day),
-        { it.toHomework() },
-        LevelEntity.empty()
+        apiService.user("study"),
+        { it.toUser() },
+        UserEntity.empty()
       )
       false -> Either.Left(Failure.NetworkConnection)
     }
-  }
-
-  override suspend fun questions(level: Int): Either<Failure, List<Question>> {
-    TODO("not implemented")
   }
 
   private fun <T, R> request(

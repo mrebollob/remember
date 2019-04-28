@@ -26,6 +26,7 @@ android {
       buildConfigField STRING, "GIT_SHA", "\"DEBUG\""
       buildConfigField STRING, "BUILD_TIME", "\"DEBUG\""
       buildConfigField STRING, "BASE_URL", "\"https://mrb-leitner.herokuapp.com\""
+      buildConfigField STRING, "USER_BASE_URL", "\"https://randomuser.me\""
       debuggable true
       minifyEnabled false
       testCoverageEnabled true
@@ -37,6 +38,7 @@ android {
       buildConfigField STRING, "GIT_SHA", "\"${gitSha}\""
       buildConfigField STRING, "BUILD_TIME", "\"${buildTime}\""
       buildConfigField STRING, "BASE_URL", "\"https://mrb-leitner.herokuapp.com\""
+      buildConfigField STRING, "USER_BASE_URL", "\"https://randomuser.me\""
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }

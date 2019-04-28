@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.mrb.remember.R
 
@@ -40,6 +41,7 @@ fun ImageView.loadImage(url: String) {
     .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.black_20a)))
     .diskCacheStrategy(DiskCacheStrategy.ALL)
     .fitCenter()
+    .apply(RequestOptions.circleCropTransform())
     .into(this)
 }
 
