@@ -1,4 +1,4 @@
-package com.mrb.remember.di
+package com.mrb.remember.di.annotation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

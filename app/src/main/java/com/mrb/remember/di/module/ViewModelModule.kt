@@ -1,7 +1,9 @@
-package com.mrb.remember.di
+package com.mrb.remember.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mrb.remember.di.RememberViewModelFactory
+import com.mrb.remember.di.annotation.ViewModelKey
 import com.mrb.remember.presentation.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
