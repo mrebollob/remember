@@ -1,11 +1,13 @@
 package com.mrb.remember.domain.extension
 
+import android.animation.Animator
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
@@ -39,4 +41,22 @@ fun ImageView.loadImage(url: String) {
     .diskCacheStrategy(DiskCacheStrategy.ALL)
     .fitCenter()
     .into(this)
+}
+
+fun LottieAnimationView.listen(animationFinished: () -> Unit) {
+  removeAllAnimatorListeners()
+  addAnimatorListener(object : Animator.AnimatorListener {
+    override fun onAnimationRepeat(animation: Animator?) {
+    }
+
+    override fun onAnimationEnd(animation: Animator?) {
+      animationFinished()
+    }
+
+    override fun onAnimationCancel(animation: Animator?) {
+    }
+
+    override fun onAnimationStart(animation: Animator?) {
+    }
+  })
 }

@@ -30,7 +30,7 @@ class SplashViewModel @Inject constructor(
       {
         isFirstStart.value = firstStartHandler.isFirstStart()
       },
-      1000
+      2000
     )
   }
 
