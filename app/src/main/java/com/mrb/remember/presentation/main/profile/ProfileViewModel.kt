@@ -14,12 +14,14 @@ class ProfileViewModel @Inject constructor(private val getUser: GetUser) : BaseV
   var userData: MutableLiveData<User> = MutableLiveData()
 
   fun init() {
+    showLoading()
     getUser(UseCase.None()) {
       it.either(::handleFailure, ::handleUser)
     }
   }
 
   private fun handleUser(user: User) {
+    hideLoading()
     this.userData.value = user
   }
 }

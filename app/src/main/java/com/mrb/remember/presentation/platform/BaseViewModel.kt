@@ -10,6 +10,7 @@ abstract class BaseViewModel : ViewModel() {
   var loading = SingleLiveEvent<Boolean>()
 
   protected fun handleFailure(failure: Failure) {
+    hideLoading()
     this.failure.value = failure
   }
 
