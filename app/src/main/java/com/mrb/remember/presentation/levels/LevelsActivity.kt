@@ -15,77 +15,72 @@ import com.mrb.remember.domain.model.Homework
 import com.mrb.remember.domain.model.LeitnerDay
 import com.mrb.remember.presentation.levels.adapter.LevelsAdapter
 import com.mrb.remember.presentation.platform.BaseActivity
-import kotlinx.android.synthetic.main.activity_levels.dayTextView
-import kotlinx.android.synthetic.main.activity_levels.doneButton
-import kotlinx.android.synthetic.main.activity_levels.levelsContent
-import kotlinx.android.synthetic.main.activity_levels.levelsListView
-import kotlinx.android.synthetic.main.activity_levels.levelsLoading
-import kotlinx.android.synthetic.main.activity_levels.levelsTextView
+import kotlinx.android.synthetic.main.activity_levels.*
 import java.util.Date
 
 class LevelsActivity : BaseActivity() {
 
-  private lateinit var levelsViewModel: LevelsViewModel
-  private val levelsAdapter = LevelsAdapter()
-  private var currentDay = -1
+    private lateinit var levelsViewModel: LevelsViewModel
+    private val levelsAdapter = LevelsAdapter()
+    private var currentDay = -1
 
-  override fun layoutId() = R.layout.activity_levels
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun layoutId() = R.layout.activity_levels
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    levelsViewModel = viewModel(viewModelFactory) {
-      observe(homework, ::handleHomework)
-      observe(completedDay, ::handleCompletedDay)
-      observe(loading, ::handleLoading)
-      failure(failure, ::handleError)
+        levelsViewModel = viewModel(viewModelFactory) {
+            observe(homework, ::handleHomework)
+            observe(completedDay, ::handleCompletedDay)
+            observe(loading, ::handleLoading)
+            failure(failure, ::handleError)
+        }
+
+        levelsListView.adapter = levelsAdapter
+
+        doneButton.setOnClickListener {
+            levelsViewModel.setCompletedDay(LeitnerDay(currentDay, Date()))
+        }
+        levelsViewModel.init()
+
+        levelsLoading.visible()
     }
 
-    levelsListView.adapter = levelsAdapter
+    private fun handleHomework(homework: Homework?) {
+        homework ?: return
 
-    doneButton.setOnClickListener {
-      levelsViewModel.setCompletedDay(LeitnerDay(currentDay, Date()))
+        currentDay = homework.day
+        levelsAdapter.levels = homework.levels
+
+        val names = homework.levels.map { it.name }
+            .reduce { acc, string -> "$acc, $string" }
+        levelsTextView.text = getString(R.string.main_view_levels_to_review, names)
+        dayTextView.text = getString(R.string.main_view_day_number, homework.day)
     }
-    levelsViewModel.init()
 
-    levelsLoading.visible()
-  }
-
-  private fun handleHomework(homework: Homework?) {
-    homework ?: return
-
-    currentDay = homework.day
-    levelsAdapter.levels = homework.levels
-
-    val names = homework.levels.map { it.name }
-      .reduce { acc, string -> "$acc, $string" }
-    levelsTextView.text = getString(R.string.main_view_levels_to_review, names)
-    dayTextView.text = getString(R.string.main_view_day_number, homework.day)
-  }
-
-  private fun handleCompletedDay(day: LeitnerDay?) {
-    finish()
-  }
-
-  private fun handleLoading(showLoading: Boolean?) {
-    if (showLoading == true) {
-      levelsLoading.visible()
-      levelsContent.gone()
-      doneButton.gone()
-    } else {
-      levelsLoading.gone()
-      levelsContent.visible()
-      doneButton.visible()
+    private fun handleCompletedDay(day: LeitnerDay?) {
+        finish()
     }
-  }
 
-  private fun handleError(failure: Failure?) {
-    toast(getString(R.string.generic_error))
-  }
-
-  companion object Navigator {
-    fun open(context: Context) {
-      val intent = Intent(context, LevelsActivity::class.java)
-      context.startActivity(intent)
+    private fun handleLoading(showLoading: Boolean?) {
+        if (showLoading == true) {
+            levelsLoading.visible()
+            levelsContent.gone()
+            doneButton.gone()
+        } else {
+            levelsLoading.gone()
+            levelsContent.visible()
+            doneButton.visible()
+        }
     }
-  }
+
+    private fun handleError(failure: Failure?) {
+        toast(getString(R.string.generic_error))
+    }
+
+    companion object Navigator {
+        fun open(context: Context) {
+            val intent = Intent(context, LevelsActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 }

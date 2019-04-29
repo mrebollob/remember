@@ -13,20 +13,20 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class LevelsViewTest {
 
-  @Rule
-  @JvmField
-  val rule = ActivityTestRule(LevelsActivity::class.java)
+    @Rule
+    @JvmField
+    val rule = ActivityTestRule(LevelsActivity::class.java)
 
-  @Test
-  fun levelsViewShouldInitWithLoading() {
+    @Test
+    fun levelsViewShouldInitWithLoading() {
 
-    onScreen<LevelsActivityScreen> {
+        onScreen<LevelsActivityScreen> {
 
-      idle(100L)
+            idle(100L)
 
-      levelsLoading.isVisible()
-      levelsContent.isGone()
-      doneButton.isGone()
+            levelsLoading.isVisible()
+            levelsContent.isGone()
+            doneButton.isGone()
+        }
     }
-  }
 }

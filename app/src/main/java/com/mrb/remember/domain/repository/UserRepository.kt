@@ -6,5 +6,5 @@ import com.mrb.remember.domain.model.User
 
 interface UserRepository {
 
-  fun user(): Either<Failure, User>
+    fun user(): Either<Failure, User>
 }

@@ -7,10 +7,10 @@ import retrofit2.http.Query
 
 interface UserApiService {
 
-  companion object {
-    private const val LEVELS = "/api/"
-  }
+    companion object {
+        private const val LEVELS = "/api/"
+    }
 
-  @GET(LEVELS)
-  fun user(@Query("seed") seed: String): Call<UserEntity>
+    @GET(LEVELS)
+    fun user(@Query("seed") seed: String): Call<UserEntity>
 }

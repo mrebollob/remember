@@ -17,173 +17,165 @@ import com.mrb.remember.domain.extension.viewModel
 import com.mrb.remember.domain.extension.visible
 import com.mrb.remember.presentation.levels.LevelsActivity
 import com.mrb.remember.presentation.platform.BaseFragment
-import kotlinx.android.synthetic.main.fragment_home.circleProgressView
-import kotlinx.android.synthetic.main.fragment_home.countdownView
-import kotlinx.android.synthetic.main.fragment_home.firstDayView
-import kotlinx.android.synthetic.main.fragment_home.hoursTextView
-import kotlinx.android.synthetic.main.fragment_home.minutesTextView
-import kotlinx.android.synthetic.main.fragment_home.showLeitnerButton
-import kotlinx.android.synthetic.main.fragment_home.studyTimeTextView
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.Date
 
 class HomeFragment : BaseFragment() {
 
-  lateinit var homeViewModel: HomeViewModel
-  override fun layoutId(): Int = R.layout.fragment_home
-  private var timer: CountDownTimer? = null
+    lateinit var homeViewModel: HomeViewModel
+    override fun layoutId(): Int = R.layout.fragment_home
+    private var timer: CountDownTimer? = null
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    activity?.setTitle(R.string.app_name)
-    countdownView.gone()
-    firstDayView.gone()
+        activity?.setTitle(R.string.app_name)
+        countdownView.gone()
+        firstDayView.gone()
 
-    homeViewModel = viewModel(viewModelFactory) {
-      observe(studyTime, ::handleStudyTime)
-      failure(failure, ::handleError)
+        homeViewModel = viewModel(viewModelFactory) {
+            observe(studyTime, ::handleStudyTime)
+            failure(failure, ::handleError)
+        }
     }
-  }
 
-  override fun onResume() {
-    super.onResume()
-    homeViewModel.init()
-  }
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.init()
+    }
 
-  private fun handleStudyTime(studyTime: Date?) {
-    studyTime ?: return
+    private fun handleStudyTime(studyTime: Date?) {
+        studyTime ?: return
 
-    countdownView.visible()
-    firstDayView.gone()
-    setLeitnerButtonEnabled()
-
-    studyTimeTextView.text =
-      getString(
-        R.string.countdown_view_study_time,
-        studyTime.getStringHour()
-      )
-
-    val remainingTime = studyTime.time - System.currentTimeMillis()
-    timer = object : CountDownTimer(remainingTime, 1000) {
-      override fun onTick(millisUntilFinished: Long) {
-        updateCountDownView(millisUntilFinished)
-      }
-
-      override fun onFinish() {
-        updateCountDownView(0)
-      }
-    }.start()
-  }
-
-  private fun updateCountDownView(millisUntilFinished: Long) {
-
-    if (millisUntilFinished > 0) {
-
-      val seconds = millisUntilFinished / 1000
-      val hours = seconds / 3600
-      val minutes = ((seconds - hours * 3600) / 60) + 1
-      updateCircleProgressView(seconds.toInt())
-
-
-      if (hours < STUDY_HOUR_THRESHOLD) {
+        countdownView.visible()
+        firstDayView.gone()
         setLeitnerButtonEnabled()
-      } else {
-        setLeitnerButtonDisabled()
-      }
 
-      val res = resources
-      hoursTextView?.apply {
-        text = res.getQuantityString(
-          R.plurals.hour_format,
-          hours.toInt(), hours
-        )
-      }
+        studyTimeTextView.text =
+            getString(
+                R.string.countdown_view_study_time,
+                studyTime.getStringHour()
+            )
 
-      minutesTextView?.apply {
-        visible()
-        text = res.getQuantityString(
-          R.plurals.minute_format,
-          minutes.toInt(), minutes
-        )
-      }
+        val remainingTime = studyTime.time - System.currentTimeMillis()
+        timer = object : CountDownTimer(remainingTime, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                updateCountDownView(millisUntilFinished)
+            }
 
-    } else {
-      updateCircleProgressView(0)
-      hoursTextView?.apply {
-        text = getString(R.string.countdown_view_completed_time)
-      }
-
-      minutesTextView?.apply {
-        gone()
-      }
-    }
-  }
-
-  private fun showFirstDay() {
-    countdownView.gone()
-    firstDayView.visible()
-    setLeitnerButtonEnabled()
-  }
-
-  private fun setLeitnerButtonEnabled() {
-    context?.let {
-      showLeitnerButton.backgroundTintList = ColorStateList.valueOf(
-        ContextCompat.getColor(
-          it,
-          R.color.show_leitner_button_color_enabled
-        )
-      )
+            override fun onFinish() {
+                updateCountDownView(0)
+            }
+        }.start()
     }
 
-    showLeitnerButton.setOnClickListener {
-      LevelsActivity.open(it.context)
+    private fun updateCountDownView(millisUntilFinished: Long) {
+
+        if (millisUntilFinished > 0) {
+
+            val seconds = millisUntilFinished / 1000
+            val hours = seconds / 3600
+            val minutes = ((seconds - hours * 3600) / 60) + 1
+            updateCircleProgressView(seconds.toInt())
+
+            if (hours < STUDY_HOUR_THRESHOLD) {
+                setLeitnerButtonEnabled()
+            } else {
+                setLeitnerButtonDisabled()
+            }
+
+            val res = resources
+            hoursTextView?.apply {
+                text = res.getQuantityString(
+                    R.plurals.hour_format,
+                    hours.toInt(), hours
+                )
+            }
+
+            minutesTextView?.apply {
+                visible()
+                text = res.getQuantityString(
+                    R.plurals.minute_format,
+                    minutes.toInt(), minutes
+                )
+            }
+        } else {
+            updateCircleProgressView(0)
+            hoursTextView?.apply {
+                text = getString(R.string.countdown_view_completed_time)
+            }
+
+            minutesTextView?.apply {
+                gone()
+            }
+        }
     }
-  }
 
-  private fun setLeitnerButtonDisabled() {
-    context?.let {
-      showLeitnerButton.backgroundTintList = ColorStateList.valueOf(
-        ContextCompat.getColor(
-          it,
-          R.color.show_leitner_button_color_disabled
-        )
-      )
+    private fun showFirstDay() {
+        countdownView.gone()
+        firstDayView.visible()
+        setLeitnerButtonEnabled()
     }
 
-    showLeitnerButton.setOnClickListener {
-      it.snack(
-        getString(
-          R.string.countdown_view_advance_time_error,
-          STUDY_HOUR_THRESHOLD
-        )
-      )
+    private fun setLeitnerButtonEnabled() {
+        context?.let {
+            showLeitnerButton.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    it,
+                    R.color.show_leitner_button_color_enabled
+                )
+            )
+        }
+
+        showLeitnerButton.setOnClickListener {
+            LevelsActivity.open(it.context)
+        }
     }
-  }
 
-  private fun updateCircleProgressView(secondsUntilFinished: Int) {
-    val value = (86400 - secondsUntilFinished) / 24
-    circleProgressView?.apply {
-      currentValue = value
+    private fun setLeitnerButtonDisabled() {
+        context?.let {
+            showLeitnerButton.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    it,
+                    R.color.show_leitner_button_color_disabled
+                )
+            )
+        }
+
+        showLeitnerButton.setOnClickListener {
+            it.snack(
+                getString(
+                    R.string.countdown_view_advance_time_error,
+                    STUDY_HOUR_THRESHOLD
+                )
+            )
+        }
     }
-  }
 
-  private fun handleError(failure: Failure?) {
-    when (failure) {
-      Failure.EmptyData -> showFirstDay()
-      else -> context?.toast(getString(R.string.generic_error))
+    private fun updateCircleProgressView(secondsUntilFinished: Int) {
+        val value = (86400 - secondsUntilFinished) / 24
+        circleProgressView?.apply {
+            currentValue = value
+        }
     }
-  }
 
-  override fun onPause() {
-    super.onPause()
-    timer?.cancel()
-  }
+    private fun handleError(failure: Failure?) {
+        when (failure) {
+            Failure.EmptyData -> showFirstDay()
+            else -> context?.toast(getString(R.string.generic_error))
+        }
+    }
 
-  companion object {
+    override fun onPause() {
+        super.onPause()
+        timer?.cancel()
+    }
 
-    private const val STUDY_HOUR_THRESHOLD = 6
+    companion object {
 
-    @JvmStatic
-    fun newInstance() = HomeFragment()
-  }
+        private const val STUDY_HOUR_THRESHOLD = 6
+
+        @JvmStatic
+        fun newInstance() = HomeFragment()
+    }
 }

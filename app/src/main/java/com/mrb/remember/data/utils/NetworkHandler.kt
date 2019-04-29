@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class NetworkHandler
 @Inject constructor(private val context: Application) {
-  val isConnected
-    get() = (context.getSystemService(Context.CONNECTIVITY_SERVICE)
-        as ConnectivityManager).activeNetworkInfo.isConnected
+    val isConnected
+        get() = (context.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager).activeNetworkInfo.isConnected
 }

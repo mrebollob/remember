@@ -14,42 +14,41 @@ import javax.inject.Inject
 
 class RememberApp : Application(), HasActivityInjector {
 
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-  override fun onCreate() {
-    super.onCreate()
+    override fun onCreate() {
+        super.onCreate()
 
-    initInjector()
-    iniCalligraphy()
-    initTimber()
-  }
-
-  private fun initTimber() {
-    if (BuildConfig.DEBUG) {
-      Timber.plant(Timber.DebugTree())
+        initInjector()
+        iniCalligraphy()
+        initTimber()
     }
-  }
 
-  private fun initInjector() {
-    AppInjector.init(this)
-  }
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
 
-  private fun iniCalligraphy() {
-    ViewPump.init(
-      ViewPump.builder()
-        .addInterceptor(
-          CalligraphyInterceptor(
-            Builder()
-              .setDefaultFontPath("fonts/Roboto-Regular.ttf")
-              .setFontAttrId(attr.fontPath)
-              .build()
-          )
+    private fun initInjector() {
+        AppInjector.init(this)
+    }
+
+    private fun iniCalligraphy() {
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        Builder()
+                            .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                            .setFontAttrId(attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
         )
-        .build()
-    )
-  }
+    }
 
-  override fun activityInjector() = dispatchingAndroidInjector
-
+    override fun activityInjector() = dispatchingAndroidInjector
 }

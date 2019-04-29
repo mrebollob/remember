@@ -16,30 +16,30 @@ import org.mockito.Mock
 
 class ProfileViewModelTest : AndroidTest() {
 
-  private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
 
-  @Mock
-  private lateinit var getUser: GetUser
+    @Mock
+    private lateinit var getUser: GetUser
 
-  @Before
-  fun setUp() {
-    profileViewModel = ProfileViewModel(getUser)
-  }
-
-  @Test
-  fun `init view model should update live data`() {
-    val testUser = User(
-      "firstName", "lastName", "email", "picture"
-    )
-    given { runBlocking { getUser.run(eq(any())) } }.willReturn(Right(testUser))
-
-    profileViewModel.userData.observeForever {
-      it.firstName shouldEqualTo testUser.firstName
-      it.lastName shouldEqualTo testUser.lastName
-      it.email shouldEqualTo testUser.email
-      it.picture shouldEqualTo testUser.picture
+    @Before
+    fun setUp() {
+        profileViewModel = ProfileViewModel(getUser)
     }
 
-    runBlocking { profileViewModel.init() }
-  }
+    @Test
+    fun `init view model should update live data`() {
+        val testUser = User(
+            "firstName", "lastName", "email", "picture"
+        )
+        given { runBlocking { getUser.run(eq(any())) } }.willReturn(Right(testUser))
+
+        profileViewModel.userData.observeForever {
+            it.firstName shouldEqualTo testUser.firstName
+            it.lastName shouldEqualTo testUser.lastName
+            it.email shouldEqualTo testUser.email
+            it.picture shouldEqualTo testUser.picture
+        }
+
+        runBlocking { profileViewModel.init() }
+    }
 }

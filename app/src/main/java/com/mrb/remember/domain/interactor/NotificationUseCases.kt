@@ -6,16 +6,16 @@ import javax.inject.Inject
 
 @OpenForTesting
 class GetNotificationEnable @Inject constructor(private val repository: ConfigRepository) :
-  UseCase<Boolean, UseCase.None>() {
+    UseCase<Boolean, UseCase.None>() {
 
-  override suspend fun run(params: None) = repository.isNotificationEnabled()
+    override suspend fun run(params: None) = repository.isNotificationEnabled()
 }
 
 @OpenForTesting
 class SaveNotificationEnable @Inject constructor(private val repository: ConfigRepository) :
-  UseCase<Boolean, SaveNotificationEnable.Params>() {
+    UseCase<Boolean, SaveNotificationEnable.Params>() {
 
-  override suspend fun run(params: Params) = repository.saveNotificationEnable(params.enabled)
+    override suspend fun run(params: Params) = repository.saveNotificationEnable(params.enabled)
 
-  data class Params(val enabled: Boolean)
+    data class Params(val enabled: Boolean)
 }

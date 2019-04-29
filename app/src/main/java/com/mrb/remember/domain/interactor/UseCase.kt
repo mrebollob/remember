@@ -10,18 +10,18 @@ import kotlinx.coroutines.launch
 
 abstract class UseCase<out Type, in Params> where Type : Any {
 
-  private val job = Job()
-  private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-  abstract suspend fun run(params: Params): Either<Failure, Type>
+    abstract suspend fun run(params: Params): Either<Failure, Type>
 
-  operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
+    operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
 
-    uiScope.launch {
-      val deferred = async(Dispatchers.Default) { run(params) }
-      onResult(deferred.await())
+        uiScope.launch {
+            val deferred = async(Dispatchers.Default) { run(params) }
+            onResult(deferred.await())
+        }
     }
-  }
 
-  class None
+    class None
 }

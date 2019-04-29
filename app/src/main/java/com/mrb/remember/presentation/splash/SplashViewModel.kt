@@ -13,44 +13,44 @@ import javax.inject.Inject
 
 @OpenForTesting
 class SplashViewModel @Inject constructor(
-  private val getNotificationEnable: GetNotificationEnable,
-  private val getStudyHour: GetStudyHour,
-  private val notificationManager: NotificationManager,
-  private val firstStartHandler: FirstStartHandler
+    private val getNotificationEnable: GetNotificationEnable,
+    private val getStudyHour: GetStudyHour,
+    private val notificationManager: NotificationManager,
+    private val firstStartHandler: FirstStartHandler
 ) : BaseViewModel() {
 
-  var isFirstStart: MutableLiveData<Boolean> = MutableLiveData()
+    var isFirstStart: MutableLiveData<Boolean> = MutableLiveData()
 
-  fun init() {
-    getNotificationEnable(UseCase.None()) {
-      it.either(::handleFailure, ::handleNotificationEnable)
-    }
-
-    Handler().postDelayed(
-      {
-        isFirstStart.value = firstStartHandler.isFirstStart()
-      },
-      2000
-    )
-  }
-
-  fun setFirstStart() {
-    firstStartHandler.saveFirstStart()
-  }
-
-  private fun handleNotificationEnable(isEnabled: Boolean) {
-    if (isEnabled) {
-      getStudyHour(UseCase.None()) {
-        it.either(
-          ::handleFailure
-        ) { hour ->
-          Timber.d("initNotification $hour")
-          notificationManager.initNotification(hour)
+    fun init() {
+        getNotificationEnable(UseCase.None()) {
+            it.either(::handleFailure, ::handleNotificationEnable)
         }
-      }
-    } else {
-      Timber.d("cancelNextNotification")
-      notificationManager.cancelNextNotification()
+
+        Handler().postDelayed(
+            {
+                isFirstStart.value = firstStartHandler.isFirstStart()
+            },
+            2000
+        )
     }
-  }
+
+    fun setFirstStart() {
+        firstStartHandler.saveFirstStart()
+    }
+
+    private fun handleNotificationEnable(isEnabled: Boolean) {
+        if (isEnabled) {
+            getStudyHour(UseCase.None()) {
+                it.either(
+                    ::handleFailure
+                ) { hour ->
+                    Timber.d("initNotification $hour")
+                    notificationManager.initNotification(hour)
+                }
+            }
+        } else {
+            Timber.d("cancelNextNotification")
+            notificationManager.cancelNextNotification()
+        }
+    }
 }

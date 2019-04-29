@@ -18,20 +18,20 @@ import org.robolectric.annotation.Config
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(
-  constants = BuildConfig::class,
-  application = AndroidTest.ApplicationStub::class,
-  sdk = [21]
+    constants = BuildConfig::class,
+    application = AndroidTest.ApplicationStub::class,
+    sdk = [21]
 )
 abstract class AndroidTest {
 
-  @Suppress("LeakingThis")
-  @Rule
-  @JvmField
-  val injectMocks = InjectMocksRule.create(this@AndroidTest)
+    @Suppress("LeakingThis")
+    @Rule
+    @JvmField
+    val injectMocks = InjectMocksRule.create(this@AndroidTest)
 
-  fun context(): Context = RuntimeEnvironment.application
+    fun context(): Context = RuntimeEnvironment.application
 
-  fun activityContext(): Context = Mockito.mock(BaseActivity::class.java)
+    fun activityContext(): Context = Mockito.mock(BaseActivity::class.java)
 
-  internal class ApplicationStub : Application()
+    internal class ApplicationStub : Application()
 }

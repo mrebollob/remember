@@ -7,7 +7,6 @@ import javax.inject.Inject
 @OpenForTesting
 class JournalViewModel @Inject constructor() : BaseViewModel() {
 
-  fun init() {
-
-  }
+    fun init() {
+    }
 }

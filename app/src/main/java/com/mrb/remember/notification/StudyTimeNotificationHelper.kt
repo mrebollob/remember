@@ -22,66 +22,65 @@ import javax.inject.Inject
 
 class StudyTimeNotificationHelper : DaggerBroadcastReceiver() {
 
-  @Inject
-  lateinit var getNotificationEnabled: GetNotificationEnable
-  @Inject
-  lateinit var getStudyHour: GetStudyHour
+    @Inject
+    lateinit var getNotificationEnabled: GetNotificationEnable
+    @Inject
+    lateinit var getStudyHour: GetStudyHour
 
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        Timber.d("Device booted, broadcast received, setting bedtime notification")
 
-  override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
-    Timber.d("Device booted, broadcast received, setting bedtime notification")
-
-    getNotificationEnabled(UseCase.None()) {
-      it.either(
-        ::handleFailure
-      ) { handleNotificationEnabled(context, it) }
-    }
-  }
-
-  private fun handleNotificationEnabled(context: Context, isEnable: Boolean) {
-    if (isEnable) {
-      getStudyHour(UseCase.None()) {
-        it.either(
-          ::handleFailure
-        ) { handleStudyHour(context, it) }
-      }
-    }
-  }
-
-  private fun handleStudyHour(context: Context, studyHour: Hour) {
-    val studyTime = studyHour.getCalendarForToday()
-
-    if (studyTime.timeInMillis < System.currentTimeMillis()) {
-      studyTime.timeInMillis = studyTime.timeInMillis + ONE_DAY_MILLIS
+        getNotificationEnabled(UseCase.None()) {
+            it.either(
+                ::handleFailure
+            ) { handleNotificationEnabled(context, it) }
+        }
     }
 
-    val settings = PreferenceManager.getDefaultSharedPreferences(context)
-    settings.edit().putInt(CURRENT_NOTIFICATION_KEY, 1).apply()
-    setStudyTimeNotification(context, studyTime)
-  }
-
-  private fun handleFailure(failure: Failure) {
-    Timber.e("Notification error: $failure")
-  }
-
-  private fun setStudyTimeNotification(context: Context, studyTime: Calendar) {
-    val intent1 = Intent(context, StudyTimeNotificationReceiver::class.java)
-
-    val pendingIntent = PendingIntent.getBroadcast(
-      context,
-      FIRST_NOTIFICATION_ALARM_REQUEST_CODE, intent1, PendingIntent.FLAG_UPDATE_CURRENT
-    )
-    val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      am.setExactAndAllowWhileIdle(
-        AlarmManager.RTC_WAKEUP,
-        studyTime.timeInMillis,
-        pendingIntent
-      )
-    } else {
-      am.setExact(AlarmManager.RTC_WAKEUP, studyTime.timeInMillis, pendingIntent)
+    private fun handleNotificationEnabled(context: Context, isEnable: Boolean) {
+        if (isEnable) {
+            getStudyHour(UseCase.None()) {
+                it.either(
+                    ::handleFailure
+                ) { handleStudyHour(context, it) }
+            }
+        }
     }
-  }
+
+    private fun handleStudyHour(context: Context, studyHour: Hour) {
+        val studyTime = studyHour.getCalendarForToday()
+
+        if (studyTime.timeInMillis < System.currentTimeMillis()) {
+            studyTime.timeInMillis = studyTime.timeInMillis + ONE_DAY_MILLIS
+        }
+
+        val settings = PreferenceManager.getDefaultSharedPreferences(context)
+        settings.edit().putInt(CURRENT_NOTIFICATION_KEY, 1).apply()
+        setStudyTimeNotification(context, studyTime)
+    }
+
+    private fun handleFailure(failure: Failure) {
+        Timber.e("Notification error: $failure")
+    }
+
+    private fun setStudyTimeNotification(context: Context, studyTime: Calendar) {
+        val intent1 = Intent(context, StudyTimeNotificationReceiver::class.java)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            FIRST_NOTIFICATION_ALARM_REQUEST_CODE, intent1, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            am.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                studyTime.timeInMillis,
+                pendingIntent
+            )
+        } else {
+            am.setExact(AlarmManager.RTC_WAKEUP, studyTime.timeInMillis, pendingIntent)
+        }
+    }
 }

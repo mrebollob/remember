@@ -17,38 +17,38 @@ import org.mockito.Mock
 
 class UserRepositoryTest : UnitTest() {
 
-  private lateinit var userRepository: UserRepository
+    private lateinit var userRepository: UserRepository
 
-  @Mock
-  private lateinit var networkHandler: NetworkHandler
-  @Mock
-  private lateinit var service: UserApiService
+    @Mock
+    private lateinit var networkHandler: NetworkHandler
+    @Mock
+    private lateinit var service: UserApiService
 
-  @Before
-  fun setUp() {
-    userRepository = UserRepositoryImp(service, networkHandler)
-  }
+    @Before
+    fun setUp() {
+        userRepository = UserRepositoryImp(service, networkHandler)
+    }
 
-  @Test
-  fun `user service should return network failure when no connection`() {
-    given { networkHandler.isConnected }.willReturn(false)
+    @Test
+    fun `user service should return network failure when no connection`() {
+        given { networkHandler.isConnected }.willReturn(false)
 
-    val user = userRepository.user()
+        val user = userRepository.user()
 
-    user shouldBeInstanceOf Either::class.java
-    user.isLeft shouldEqual true
-    user.either({ failure -> failure shouldBeInstanceOf NetworkConnection::class.java }, {})
-    verifyZeroInteractions(service)
-  }
+        user shouldBeInstanceOf Either::class.java
+        user.isLeft shouldEqual true
+        user.either({ failure -> failure shouldBeInstanceOf NetworkConnection::class.java }, {})
+        verifyZeroInteractions(service)
+    }
 
-  @Test
-  fun `user request should catch exceptions`() {
-    given { networkHandler.isConnected }.willReturn(true)
+    @Test
+    fun `user request should catch exceptions`() {
+        given { networkHandler.isConnected }.willReturn(true)
 
-    val user = userRepository.user()
+        val user = userRepository.user()
 
-    user shouldBeInstanceOf Either::class.java
-    user.isLeft shouldEqual true
-    user.either({ failure -> failure shouldBeInstanceOf ServerError::class.java }, {})
-  }
+        user shouldBeInstanceOf Either::class.java
+        user.isLeft shouldEqual true
+        user.either({ failure -> failure shouldBeInstanceOf ServerError::class.java }, {})
+    }
 }

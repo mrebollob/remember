@@ -8,9 +8,9 @@ import javax.inject.Singleton
 class LeitnerBoxService
 @Inject constructor(retrofit: Retrofit) : LeitnerBoxApi {
 
-  private val leitnerBoxApi by lazy { retrofit.create(LeitnerBoxApi::class.java) }
+    private val leitnerBoxApi by lazy { retrofit.create(LeitnerBoxApi::class.java) }
 
-  override fun levels(levelId: Int) = leitnerBoxApi.levels(levelId)
+    override fun levels(levelId: Int) = leitnerBoxApi.levels(levelId)
 
-  override fun questions(questionslevel: Int) = leitnerBoxApi.questions(questionslevel)
+    override fun questions(questionslevel: Int) = leitnerBoxApi.questions(questionslevel)
 }

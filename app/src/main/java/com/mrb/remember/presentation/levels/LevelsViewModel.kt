@@ -13,39 +13,39 @@ import javax.inject.Inject
 
 @OpenForTesting
 class LevelsViewModel @Inject constructor(
-  private val getCompletedDay: GetCompletedDay,
-  private val saveCompletedDay: SaveCompletedDay,
-  private val getHomework: GetHomework
+    private val getCompletedDay: GetCompletedDay,
+    private val saveCompletedDay: SaveCompletedDay,
+    private val getHomework: GetHomework
 ) : BaseViewModel() {
 
-  var homework: MutableLiveData<Homework> = MutableLiveData()
-  var completedDay: MutableLiveData<LeitnerDay> = MutableLiveData()
+    var homework: MutableLiveData<Homework> = MutableLiveData()
+    var completedDay: MutableLiveData<LeitnerDay> = MutableLiveData()
 
-  fun init() {
-    showLoading()
-    getCompletedDay(UseCase.None()) {
-      it.either(::handleFailure, ::handleLeitnerDay)
+    fun init() {
+        showLoading()
+        getCompletedDay(UseCase.None()) {
+            it.either(::handleFailure, ::handleLeitnerDay)
+        }
     }
-  }
 
-  fun setCompletedDay(day: LeitnerDay) {
-    saveCompletedDay(SaveCompletedDay.Params(day)) {
-      it.either(::handleFailure, ::handleCompletedDay)
+    fun setCompletedDay(day: LeitnerDay) {
+        saveCompletedDay(SaveCompletedDay.Params(day)) {
+            it.either(::handleFailure, ::handleCompletedDay)
+        }
     }
-  }
 
-  private fun handleCompletedDay(day: LeitnerDay) {
-    this.completedDay.value = day
-  }
-
-  private fun handleLeitnerDay(leitnerDay: LeitnerDay) {
-    getHomework(GetHomework.Params(leitnerDay.dayNumber + 1)) {
-      it.either(::handleFailure, ::handleHomework)
+    private fun handleCompletedDay(day: LeitnerDay) {
+        this.completedDay.value = day
     }
-  }
 
-  private fun handleHomework(homework: Homework) {
-    hideLoading()
-    this.homework.value = homework
-  }
+    private fun handleLeitnerDay(leitnerDay: LeitnerDay) {
+        getHomework(GetHomework.Params(leitnerDay.dayNumber + 1)) {
+            it.either(::handleFailure, ::handleHomework)
+        }
+    }
+
+    private fun handleHomework(homework: Homework) {
+        hideLoading()
+        this.homework.value = homework
+    }
 }

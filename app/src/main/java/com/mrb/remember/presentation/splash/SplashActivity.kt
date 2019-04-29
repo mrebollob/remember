@@ -15,39 +15,39 @@ import com.mrb.remember.testing.OpenForTesting
 @OpenForTesting
 class SplashActivity : BaseActivity() {
 
-  private lateinit var splashViewModel: SplashViewModel
+    private lateinit var splashViewModel: SplashViewModel
 
-  override fun layoutId() = R.layout.activity_splash
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun layoutId() = R.layout.activity_splash
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    splashViewModel = viewModel(viewModelFactory) {
-      observe(isFirstStart, ::renderResult)
-      failure(failure, ::handleError)
+        splashViewModel = viewModel(viewModelFactory) {
+            observe(isFirstStart, ::renderResult)
+            failure(failure, ::handleError)
+        }
+
+        splashViewModel.init()
     }
 
-    splashViewModel.init()
-  }
-
-  private fun renderResult(isFirstStart: Boolean?) {
-    when (isFirstStart) {
-      true -> initShowIntro()
-      else -> initApp()
+    private fun renderResult(isFirstStart: Boolean?) {
+        when (isFirstStart) {
+            true -> initShowIntro()
+            else -> initApp()
+        }
     }
-  }
 
-  private fun initShowIntro() {
-    splashViewModel.setFirstStart()
-    IntroActivity.open(this)
-    finish()
-  }
+    private fun initShowIntro() {
+        splashViewModel.setFirstStart()
+        IntroActivity.open(this)
+        finish()
+    }
 
-  private fun initApp() {
-    MainActivity.open(this)
-    finish()
-  }
+    private fun initApp() {
+        MainActivity.open(this)
+        finish()
+    }
 
-  private fun handleError(failure: Failure?) {
-    toast(getString(R.string.generic_error))
-  }
+    private fun handleError(failure: Failure?) {
+        toast(getString(R.string.generic_error))
+    }
 }

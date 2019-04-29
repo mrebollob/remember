@@ -5,15 +5,15 @@ import com.mrb.remember.domain.repository.ConfigRepository
 import javax.inject.Inject
 
 class GetCompletedDay @Inject constructor(private val repository: ConfigRepository) :
-  UseCase<LeitnerDay, UseCase.None>() {
+    UseCase<LeitnerDay, UseCase.None>() {
 
-  override suspend fun run(params: None) = repository.completedDay()
+    override suspend fun run(params: None) = repository.completedDay()
 }
 
 class SaveCompletedDay @Inject constructor(private val repository: ConfigRepository) :
-  UseCase<LeitnerDay, SaveCompletedDay.Params>() {
+    UseCase<LeitnerDay, SaveCompletedDay.Params>() {
 
-  override suspend fun run(params: Params) = repository.saveCompletedDay(params.day)
+    override suspend fun run(params: Params) = repository.saveCompletedDay(params.day)
 
-  data class Params(val day: LeitnerDay)
+    data class Params(val day: LeitnerDay)
 }

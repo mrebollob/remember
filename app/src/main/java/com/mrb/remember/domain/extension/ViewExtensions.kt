@@ -15,50 +15,50 @@ import com.google.android.material.snackbar.Snackbar
 import com.mrb.remember.R
 
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
-  return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
+    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
 
 fun View.visible() {
-  this.visibility = View.VISIBLE
+    this.visibility = View.VISIBLE
 }
 
 fun View.invisible() {
-  this.visibility = View.INVISIBLE
+    this.visibility = View.INVISIBLE
 }
 
 fun View.gone() {
-  this.visibility = View.GONE
+    this.visibility = View.GONE
 }
 
 fun View.snack(message: String, length: Int = Snackbar.LENGTH_LONG) {
-  val snack = Snackbar.make(this, message, length)
-  snack.show()
+    val snack = Snackbar.make(this, message, length)
+    snack.show()
 }
 
 fun ImageView.loadImage(url: String) {
-  Glide.with(context)
-    .load(url)
-    .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.black_20a)))
-    .diskCacheStrategy(DiskCacheStrategy.ALL)
-    .fitCenter()
-    .apply(RequestOptions.circleCropTransform())
-    .into(this)
+    Glide.with(context)
+        .load(url)
+        .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.black_20a)))
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .fitCenter()
+        .apply(RequestOptions.circleCropTransform())
+        .into(this)
 }
 
 fun LottieAnimationView.listen(animationFinished: () -> Unit) {
-  removeAllAnimatorListeners()
-  addAnimatorListener(object : Animator.AnimatorListener {
-    override fun onAnimationRepeat(animation: Animator?) {
-    }
+    removeAllAnimatorListeners()
+    addAnimatorListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator?) {
+        }
 
-    override fun onAnimationEnd(animation: Animator?) {
-      animationFinished()
-    }
+        override fun onAnimationEnd(animation: Animator?) {
+            animationFinished()
+        }
 
-    override fun onAnimationCancel(animation: Animator?) {
-    }
+        override fun onAnimationCancel(animation: Animator?) {
+        }
 
-    override fun onAnimationStart(animation: Animator?) {
-    }
-  })
+        override fun onAnimationStart(animation: Animator?) {
+        }
+    })
 }

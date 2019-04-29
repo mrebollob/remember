@@ -10,22 +10,22 @@ import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity() {
 
-  @Inject
-  lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
-    super.onCreate(savedInstanceState)
-    setContentView(layoutId())
-  }
-
-  abstract fun layoutId(): Int
-
-  override fun attachBaseContext(newBase: Context?) {
-    newBase?.let {
-      super.attachBaseContext(ViewPumpContextWrapper.wrap(it))
-    } ?: also {
-      super.attachBaseContext(newBase)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
+        setContentView(layoutId())
     }
-  }
+
+    abstract fun layoutId(): Int
+
+    override fun attachBaseContext(newBase: Context?) {
+        newBase?.let {
+            super.attachBaseContext(ViewPumpContextWrapper.wrap(it))
+        } ?: also {
+            super.attachBaseContext(newBase)
+        }
+    }
 }

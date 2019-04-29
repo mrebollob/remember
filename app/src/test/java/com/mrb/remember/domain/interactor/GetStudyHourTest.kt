@@ -14,22 +14,22 @@ import org.mockito.Mock
 
 class GetStudyHourTest : UnitTest() {
 
-  private lateinit var getStudyHour: GetStudyHour
+    private lateinit var getStudyHour: GetStudyHour
 
-  @Mock
-  private lateinit var repository: ConfigRepository
+    @Mock
+    private lateinit var repository: ConfigRepository
 
-  @Before
-  fun setUp() {
-    getStudyHour = GetStudyHour(repository)
-    given { repository.getStudyHour() }.willReturn(Right(Hour.empty()))
-  }
+    @Before
+    fun setUp() {
+        getStudyHour = GetStudyHour(repository)
+        given { repository.getStudyHour() }.willReturn(Right(Hour.empty()))
+    }
 
-  @Test
-  fun `should get data from repository`() {
-    runBlocking { getStudyHour.run(UseCase.None()) }
+    @Test
+    fun `should get data from repository`() {
+        runBlocking { getStudyHour.run(UseCase.None()) }
 
-    verify(repository).getStudyHour()
-    verifyNoMoreInteractions(repository)
-  }
+        verify(repository).getStudyHour()
+        verifyNoMoreInteractions(repository)
+    }
 }

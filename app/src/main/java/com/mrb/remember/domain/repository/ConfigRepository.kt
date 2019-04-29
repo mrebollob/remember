@@ -8,17 +8,17 @@ import java.util.Date
 
 interface ConfigRepository {
 
-  fun completedDay(): Either<Failure, LeitnerDay>
+    fun completedDay(): Either<Failure, LeitnerDay>
 
-  fun saveCompletedDay(day: LeitnerDay): Either<Failure, LeitnerDay>
+    fun saveCompletedDay(day: LeitnerDay): Either<Failure, LeitnerDay>
 
-  fun getNextStudyTime(): Either<Failure, Date>
+    fun getNextStudyTime(): Either<Failure, Date>
 
-  fun getStudyHour(): Either<Failure, Hour>
+    fun getStudyHour(): Either<Failure, Hour>
 
-  fun saveStudyHour(hour: Hour): Either<Failure, Hour>
+    fun saveStudyHour(hour: Hour): Either<Failure, Hour>
 
-  fun saveNotificationEnable(isEnable: Boolean): Either<Failure, Boolean>
+    fun saveNotificationEnable(isEnable: Boolean): Either<Failure, Boolean>
 
-  fun isNotificationEnabled(): Either<Failure, Boolean>
+    fun isNotificationEnabled(): Either<Failure, Boolean>
 }

@@ -10,13 +10,13 @@ import androidx.core.content.ContextCompat
 import com.mrb.remember.R
 
 val Context.networkInfo: NetworkInfo?
-  get() =
-    (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+    get() =
+        (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
 
 fun Context.toast(text: String) = Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 
 fun Context.loadCustomTabs(uri: Uri) = with(this) {
-  val builder = CustomTabsIntent.Builder()
-  builder.setToolbarColor(ContextCompat.getColor(this, R.color.primary_dark))
-  builder.build().launchUrl(this, uri)
+    val builder = CustomTabsIntent.Builder()
+    builder.setToolbarColor(ContextCompat.getColor(this, R.color.primary_dark))
+    builder.build().launchUrl(this, uri)
 }

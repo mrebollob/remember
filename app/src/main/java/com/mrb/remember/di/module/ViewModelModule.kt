@@ -17,31 +17,31 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class ViewModelModule {
 
-  @Binds
-  @IntoMap
-  @ViewModelKey(SplashViewModel::class)
-  abstract fun bindSplashViewModel(splashViewModel: SplashViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashViewModel::class)
+    abstract fun bindSplashViewModel(splashViewModel: SplashViewModel): ViewModel
 
-  @Binds
-  @IntoMap
-  @ViewModelKey(HomeViewModel::class)
-  abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
 
-  @Binds
-  @IntoMap
-  @ViewModelKey(JournalViewModel::class)
-  abstract fun bindJournalViewModel(journalViewModel: JournalViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(JournalViewModel::class)
+    abstract fun bindJournalViewModel(journalViewModel: JournalViewModel): ViewModel
 
-  @Binds
-  @IntoMap
-  @ViewModelKey(ProfileViewModel::class)
-  abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
 
-  @Binds
-  @IntoMap
-  @ViewModelKey(LevelsViewModel::class)
-  abstract fun bindLevelsViewModel(LevelsViewModel: LevelsViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(LevelsViewModel::class)
+    abstract fun bindLevelsViewModel(LevelsViewModel: LevelsViewModel): ViewModel
 
-  @Binds
-  abstract fun bindViewModelFactory(factory: RememberViewModelFactory): ViewModelProvider.Factory
+    @Binds
+    abstract fun bindViewModelFactory(factory: RememberViewModelFactory): ViewModelProvider.Factory
 }

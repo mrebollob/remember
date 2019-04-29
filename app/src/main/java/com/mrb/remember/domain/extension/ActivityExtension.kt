@@ -8,16 +8,16 @@ import com.mrb.remember.presentation.platform.BaseActivity
 import com.mrb.remember.presentation.platform.BaseFragment
 
 inline fun <reified T : ViewModel> BaseActivity.viewModel(
-  factory: ViewModelProvider.Factory,
-  body: T.() -> Unit
+    factory: ViewModelProvider.Factory,
+    body: T.() -> Unit
 ): T {
-  val vm = ViewModelProviders.of(this, factory)[T::class.java]
-  vm.body()
-  return vm
+    val vm = ViewModelProviders.of(this, factory)[T::class.java]
+    vm.body()
+    return vm
 }
 
 fun BaseActivity.navigate(baseFragment: BaseFragment) {
-  supportFragmentManager.beginTransaction()
-    .replace(R.id.container, baseFragment)
-    .commit()
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.container, baseFragment)
+        .commit()
 }

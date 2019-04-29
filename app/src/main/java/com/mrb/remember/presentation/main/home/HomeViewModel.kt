@@ -10,18 +10,18 @@ import javax.inject.Inject
 
 @OpenForTesting
 class HomeViewModel @Inject constructor(
-  private val getNextStudyTime: GetNextStudyTime
+    private val getNextStudyTime: GetNextStudyTime
 ) : BaseViewModel() {
 
-  var studyTime: MutableLiveData<Date> = MutableLiveData()
+    var studyTime: MutableLiveData<Date> = MutableLiveData()
 
-  fun init() {
-    getNextStudyTime(UseCase.None()) {
-      it.either(::handleFailure, ::handleStudyTime)
+    fun init() {
+        getNextStudyTime(UseCase.None()) {
+            it.either(::handleFailure, ::handleStudyTime)
+        }
     }
-  }
 
-  private fun handleStudyTime(studyTime: Date) {
-    this.studyTime.value = studyTime
-  }
+    private fun handleStudyTime(studyTime: Date) {
+        this.studyTime.value = studyTime
+    }
 }

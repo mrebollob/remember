@@ -11,12 +11,12 @@ import javax.inject.Singleton
 @Module(includes = [ViewModelModule::class])
 class AppModule {
 
-  @Provides
-  @Singleton
-  fun provideGson(): Gson = Gson()
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
 
-  @Provides
-  @Singleton
-  fun providePreferences(application: Application): SharedPreferences =
-    PreferenceManager.getDefaultSharedPreferences(application)
+    @Provides
+    @Singleton
+    fun providePreferences(application: Application): SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(application)
 }

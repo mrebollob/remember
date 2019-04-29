@@ -9,37 +9,36 @@ import com.mrb.remember.domain.model.User
 import com.mrb.remember.domain.repository.UserRepository
 import retrofit2.Call
 
-
 class UserRepositoryImp(
-  private val apiService: UserApiService,
-  private val networkHandler: NetworkHandler
+    private val apiService: UserApiService,
+    private val networkHandler: NetworkHandler
 ) : UserRepository {
 
-  override fun user(): Either<Failure, User> {
+    override fun user(): Either<Failure, User> {
 
-    return when (networkHandler.isConnected) {
-      true -> request(
-        apiService.user("study"),
-        { it.toUser() },
-        UserEntity.empty()
-      )
-      false -> Either.Left(Failure.NetworkConnection)
+        return when (networkHandler.isConnected) {
+            true -> request(
+                apiService.user("study"),
+                { it.toUser() },
+                UserEntity.empty()
+            )
+            false -> Either.Left(Failure.NetworkConnection)
+        }
     }
-  }
 
-  private fun <T, R> request(
-    call: Call<T>,
-    transform: (T) -> R,
-    default: T
-  ): Either<Failure, R> {
-    return try {
-      val response = call.execute()
-      when (response.isSuccessful) {
-        true -> Either.Right(transform((response.body() ?: default)))
-        false -> Either.Left(Failure.ServerError)
-      }
-    } catch (exception: Throwable) {
-      Either.Left(Failure.ServerError)
+    private fun <T, R> request(
+        call: Call<T>,
+        transform: (T) -> R,
+        default: T
+    ): Either<Failure, R> {
+        return try {
+            val response = call.execute()
+            when (response.isSuccessful) {
+                true -> Either.Right(transform((response.body() ?: default)))
+                false -> Either.Left(Failure.ServerError)
+            }
+        } catch (exception: Throwable) {
+            Either.Left(Failure.ServerError)
+        }
     }
-  }
 }

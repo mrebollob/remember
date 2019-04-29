@@ -12,20 +12,20 @@ import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
 
-  @Inject
-  lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  override fun onAttach(context: Context) {
-    AndroidSupportInjection.inject(this)
-    super.onAttach(context)
-  }
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View =
-    inflater.inflate(layoutId(), container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
+        inflater.inflate(layoutId(), container, false)
 
-  abstract fun layoutId(): Int
+    abstract fun layoutId(): Int
 }

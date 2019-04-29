@@ -11,40 +11,39 @@ import com.mrb.remember.domain.repository.RememberRepository
 import retrofit2.Call
 
 class RememberRepositoryImp(
-  private val apiService: LeitnerBoxApiService,
-  private val networkHandler: NetworkHandler
+    private val apiService: LeitnerBoxApiService,
+    private val networkHandler: NetworkHandler
 ) : RememberRepository {
 
+    override fun homework(day: Int): Either<Failure, Homework> {
 
-  override fun homework(day: Int): Either<Failure, Homework> {
-
-    return when (networkHandler.isConnected) {
-      true -> request(
-        apiService.levels(day),
-        { it.toHomework() },
-        LevelEntity.empty()
-      )
-      false -> Either.Left(Failure.NetworkConnection)
+        return when (networkHandler.isConnected) {
+            true -> request(
+                apiService.levels(day),
+                { it.toHomework() },
+                LevelEntity.empty()
+            )
+            false -> Either.Left(Failure.NetworkConnection)
+        }
     }
-  }
 
-  override fun questions(level: Int): Either<Failure, List<Question>> {
-    TODO("not implemented")
-  }
-
-  private fun <T, R> request(
-    call: Call<T>,
-    transform: (T) -> R,
-    default: T
-  ): Either<Failure, R> {
-    return try {
-      val response = call.execute()
-      when (response.isSuccessful) {
-        true -> Either.Right(transform((response.body() ?: default)))
-        false -> Either.Left(Failure.ServerError)
-      }
-    } catch (exception: Throwable) {
-      Either.Left(Failure.ServerError)
+    override fun questions(level: Int): Either<Failure, List<Question>> {
+        TODO("not implemented")
     }
-  }
+
+    private fun <T, R> request(
+        call: Call<T>,
+        transform: (T) -> R,
+        default: T
+    ): Either<Failure, R> {
+        return try {
+            val response = call.execute()
+            when (response.isSuccessful) {
+                true -> Either.Right(transform((response.body() ?: default)))
+                false -> Either.Left(Failure.ServerError)
+            }
+        } catch (exception: Throwable) {
+            Either.Left(Failure.ServerError)
+        }
+    }
 }

@@ -6,8 +6,15 @@ import com.mrb.remember.testing.OpenForTesting
 import javax.inject.Inject
 
 @OpenForTesting
-class GetUser @Inject constructor(private val repository: UserRepository) :
-  UseCase<User, UseCase.None>() {
+class Login @Inject constructor(private val repository: UserRepository) :
+    UseCase<User, UseCase.None>() {
 
-  override suspend fun run(params: None) = repository.user()
+    override suspend fun run(params: None) = repository.user()
+}
+
+@OpenForTesting
+class GetUser @Inject constructor(private val repository: UserRepository) :
+    UseCase<User, UseCase.None>() {
+
+    override suspend fun run(params: None) = repository.user()
 }
