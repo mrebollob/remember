@@ -7,7 +7,7 @@ import com.mrb.remember.domain.model.Question
 
 interface RememberRepository {
 
-  suspend fun homework(day: Int): Either<Failure, Homework>
+  fun homework(day: Int): Either<Failure, Homework>
 
-  suspend fun questions(level: Int): Either<Failure, List<Question>>
+  fun questions(level: Int): Either<Failure, List<Question>>
 }

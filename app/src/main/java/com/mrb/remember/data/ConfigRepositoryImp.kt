@@ -21,7 +21,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
 
   private val sharedPreferences = context.getSharedPreferences("leitnerbox", Context.MODE_PRIVATE)
 
-  override suspend fun completedDay(): Either<Failure, LeitnerDay> {
+  override fun completedDay(): Either<Failure, LeitnerDay> {
     return try {
       val jsonDay = sharedPreferences.getString(COMPLETED_DAY_KEY, "")
 
@@ -38,7 +38,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     }
   }
 
-  override suspend fun saveCompletedDay(day: LeitnerDay): Either<Failure, LeitnerDay> {
+  override fun saveCompletedDay(day: LeitnerDay): Either<Failure, LeitnerDay> {
 
     updateNextStudyTime()
 
@@ -49,7 +49,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     return Either.Right(day)
   }
 
-  override suspend fun getNextStudyTime(): Either<Failure, Date> {
+  override fun getNextStudyTime(): Either<Failure, Date> {
     val studyTime = sharedPreferences.getLong(NEXT_STUDY_TIME_KEY, 0)
 
     return if (studyTime != 0L) {
@@ -76,7 +76,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     }
   }
 
-  override suspend fun saveStudyHour(hour: Hour): Either<Failure, Hour> {
+  override fun saveStudyHour(hour: Hour): Either<Failure, Hour> {
     sharedPreferences.edit()
       .putString(STUDY_HOUR_KEY, gson.toJson(hour))
       .apply()
@@ -84,7 +84,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     return Either.Right(hour)
   }
 
-  override suspend fun saveNotificationEnable(isEnable: Boolean): Either<Failure, Boolean> {
+  override fun saveNotificationEnable(isEnable: Boolean): Either<Failure, Boolean> {
     sharedPreferences.edit()
       .putBoolean(NOTIFICATION_ENABLE_KEY, isEnable)
       .apply()
@@ -92,7 +92,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
     return Either.Right(isEnable)
   }
 
-  override suspend fun isNotificationEnabled(): Either<Failure, Boolean> {
+  override fun isNotificationEnabled(): Either<Failure, Boolean> {
     return try {
       Either.Right(sharedPreferences.getBoolean(NOTIFICATION_ENABLE_KEY, true))
 
@@ -103,7 +103,7 @@ class ConfigRepositoryImp(context: Context, private val gson: Gson) : ConfigRepo
   }
 
 
-  private suspend fun updateNextStudyTime() {
+  private fun updateNextStudyTime() {
 
     getStudyHour().either({
 

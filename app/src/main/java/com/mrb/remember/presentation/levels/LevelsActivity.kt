@@ -70,9 +70,11 @@ class LevelsActivity : BaseActivity() {
     if (showLoading == true) {
       levelsLoading.visible()
       levelsContent.gone()
+      doneButton.gone()
     } else {
       levelsLoading.gone()
       levelsContent.visible()
+      doneButton.visible()
     }
   }
 

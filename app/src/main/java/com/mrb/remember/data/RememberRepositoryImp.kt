@@ -16,7 +16,7 @@ class RememberRepositoryImp(
 ) : RememberRepository {
 
 
-  override suspend fun homework(day: Int): Either<Failure, Homework> {
+  override fun homework(day: Int): Either<Failure, Homework> {
 
     return when (networkHandler.isConnected) {
       true -> request(
@@ -28,7 +28,7 @@ class RememberRepositoryImp(
     }
   }
 
-  override suspend fun questions(level: Int): Either<Failure, List<Question>> {
+  override fun questions(level: Int): Either<Failure, List<Question>> {
     TODO("not implemented")
   }
 

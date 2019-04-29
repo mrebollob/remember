@@ -15,7 +15,7 @@ class UserRepositoryImp(
   private val networkHandler: NetworkHandler
 ) : UserRepository {
 
-  override suspend fun user(): Either<Failure, User> {
+  override fun user(): Either<Failure, User> {
 
     return when (networkHandler.isConnected) {
       true -> request(
