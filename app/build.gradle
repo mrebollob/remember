@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-allopen'
+apply from: "$rootDir/buildsystem/ktlint.gradle"
 
 def STRING = "String"
 
@@ -121,8 +122,13 @@ dependencies {
   testImplementation "com.nhaarman:mockito-kotlin:1.4.0"
   testImplementation "org.amshove.kluent:kluent:1.14"
 
-  androidTestImplementation 'androidx.test:runner:1.1.1'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+  //Android Testing
+  androidTestImplementation "com.agoda.kakao:kakao:2.0.0"
+  androidTestImplementation "androidx.annotation:annotation:1.0.2"
+  androidTestImplementation "androidx.test:runner:1.1.1"
+  androidTestImplementation "androidx.test:rules:1.1.1"
+  androidTestImplementation "androidx.test.espresso:espresso-intents:3.1.1"
+  androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
 }
 
 def computeVersionCode() {
