@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.levels.LevelsActivity"
+    >
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="@dimen/spacing_normal"
+      >
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/levelsLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="anim/loading.json"
+        app:lottie_loop="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/levelsContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/dayTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:gravity="center"
+          android:textColor="@color/primary_text"
+          android:textSize="@dimen/font_larger"
+          tools:text="@string/main_view_day_number"
+          />
+
+      <TextView
+          android:id="@+id/levelsTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_tiny"
+          android:gravity="center"
+          android:textColor="@color/primary_text"
+          android:textSize="@dimen/font_large"
+          tools:text="@string/main_view_levels_to_review"
+          />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/levelsListView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="@dimen/spacing_large"
+          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+          app:spanCount="3"
+          tools:listitem="@layout/level_list_item"
+          />
+    </LinearLayout>
+  </FrameLayout>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/doneButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|center"
+      android:layout_margin="@dimen/fab_margin"
+      android:src="@drawable/ic_done"
+      app:backgroundTint="@color/done_button_color"
+      />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

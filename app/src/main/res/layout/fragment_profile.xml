@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+  <com.facebook.shimmer.ShimmerFrameLayout
+      android:id="@+id/shimmerView"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_gravity="center"
+      android:orientation="vertical"
+      app:duration="800"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+      <include layout="@layout/view_profile_placeholder"/>
+    </LinearLayout>
+
+  </com.facebook.shimmer.ShimmerFrameLayout>
+
+  <LinearLayout
+      android:id="@+id/profileView"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_margin="@dimen/spacing_normal"
+      android:orientation="horizontal"
+      android:visibility="gone"
+      >
+
+    <ImageView
+        android:id="@+id/userImageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_normal"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:id="@+id/nameTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/primary_text"
+          android:textSize="@dimen/font_normal"
+          tools:text="@tools:sample/full_names"
+          />
+
+      <TextView
+          android:id="@+id/emailTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/secondary_text"
+          android:textSize="@dimen/font_small"
+          tools:text="email@sample.com"
+          />
+    </LinearLayout>
+  </LinearLayout>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/divider"
+      />
+
+  <Button
+      android:id="@+id/aboutButton"
+      android:layout_width="120dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:text="@string/about_title"
+      />
+</LinearLayout>
