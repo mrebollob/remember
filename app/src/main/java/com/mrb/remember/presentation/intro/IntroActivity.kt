@@ -20,13 +20,13 @@ class IntroActivity : AppIntro2() {
     val firstSlide = SliderPage()
     firstSlide.title = getString(R.string.intro_title_1)
     firstSlide.description = getString(R.string.intro_descripcion_1)
-    firstSlide.imageDrawable = R.drawable.ic_about
+    firstSlide.imageDrawable = R.drawable.ic_open_book
     firstSlide.bgColor = ContextCompat.getColor(this, R.color.level_1)
 
     val secondSlide = SliderPage()
     secondSlide.title = getString(R.string.intro_title_2)
     secondSlide.description = getString(R.string.intro_descripcion_2)
-    secondSlide.imageDrawable = R.drawable.ic_settings
+    secondSlide.imageDrawable = R.drawable.ic_books
     secondSlide.bgColor = ContextCompat.getColor(this, R.color.level_2)
 
     setColorTransitionsEnabled(true)
